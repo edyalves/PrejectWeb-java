@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projectWeb.course.entities.User;
 
-//RECURSO WEB IMPLEMENTANDO POR UM CONTROLADOR REST
-//NOME DO RECURSO
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
