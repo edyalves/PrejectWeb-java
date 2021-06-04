@@ -1,13 +1,18 @@
 package com.projectWeb.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -19,6 +24,10 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
+	//ASSOCIAÇÕES
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
+	
 	//AO USAR FRAMEWORK, É OBRIGADO CRIA UM CONSTRUTOR VAZIO
 	public User() {
 	}
@@ -29,6 +38,10 @@ public class User implements Serializable {
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
 	}
 
 	public Long getId() {
@@ -95,8 +108,4 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
 }
