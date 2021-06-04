@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.projectWeb.course.entities.enums.OrderStatus;
 
 @Entity
 @Table(name = "tb_order")
@@ -23,9 +24,11 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	//FORMATA ISO8601
+	//FORMATAR DATA PADRAO ISO8601
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
+	
+	private Integer orderStatus;
 	
 	//RELAÇÃO DE UM PARA MUITOS NO BD RELACIONAL
 	@ManyToOne
@@ -36,10 +39,11 @@ public class Order implements Serializable {
 		
 	}
 
-	public Order(Long id, Instant moment, User client) {
+	public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
 		super();
 		this.id = id;
 		this.moment = moment;
+		setOrderStatus(orderStatus);
 		this.client = client;
 	}
 
@@ -61,6 +65,18 @@ public class Order implements Serializable {
 
 	public User getClient() {
 		return client;
+	}
+
+	public OrderStatus getOrderStatus() {
+		//CONVERTENDO O NUMERO INTERIRO QUE ESTA SENDO RECEBIDO DA CLASSE PARA O TIPO ORDERSTATUS
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		//INVERTO AO METODO GET, NESTE CASO PRECISA-SE GUARDA O NUMERO INTEIRO CORESPONDENTE AO ORDERSTATUS
+		if(orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
 	}
 
 	public void setClient(User client) {
