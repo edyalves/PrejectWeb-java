@@ -51,13 +51,22 @@ public class TestConfig implements CommandLineRunner{
 		Product p1 = new Product(null, "O Rei dos Aneis", "Description p1", 90.5, "");
 		Product p2 = new Product(null, "Os Incriveis", "Description p2", 100.5, "");	
 		Product p3 = new Product(null, "Madagascar", "Description p3", 80.5, "");	
-		Product p4 = new Product(null, "IT", "Description p4", 70.5, "");	
-		
+		Product p4 = new Product(null, "IT", "Description p4", 70.5, "");
+		Product p5 = new Product(null, "NootBook", "Description p5", 1500.0, "");
 		
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
-		produtcRepository.saveAll(Arrays.asList(p1,p2,p3,p4));
+		produtcRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		
+		//RELAÇÃO DE TABELAS
+		p1.getCategories().add(cat2);
+		p2.getCategories().add(cat2);
+		p2.getCategories().add(cat2);
+		p2.getCategories().add(cat2);
+		p5.getCategories().add(cat3);
+		produtcRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		
 		
 	}
 }
