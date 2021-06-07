@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.projectWeb.course.entities.Category;
 import com.projectWeb.course.entities.Order;
+import com.projectWeb.course.entities.Product;
 import com.projectWeb.course.entities.User;
 import com.projectWeb.course.entities.enums.OrderStatus;
 import com.projectWeb.course.repositories.CategoryRepository;
 import com.projectWeb.course.repositories.OrderRepository;
+import com.projectWeb.course.repositories.ProductRepository;
 import com.projectWeb.course.repositories.UserRepository;
 
 @Configuration
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private ProductRepository produtcRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -41,12 +46,18 @@ public class TestConfig implements CommandLineRunner{
 		
 		Category cat1 = new Category(null, "Electronics");
 		Category cat2 = new Category(null, "Books");
-		Category cat3 = new Category(null, "Computers");		
+		Category cat3 = new Category(null, "Computers");	
+		
+		Product p1 = new Product(null, "O Rei dos Aneis", "Description p1", 90.5, "");
+		Product p2 = new Product(null, "Os Incriveis", "Description p2", 100.5, "");	
+		Product p3 = new Product(null, "Madagascar", "Description p3", 80.5, "");	
+		Product p4 = new Product(null, "IT", "Description p4", 70.5, "");	
 		
 		
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+		produtcRepository.saveAll(Arrays.asList(p1,p2,p3,p4));
 		
 	}
 }
