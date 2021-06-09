@@ -3,6 +3,8 @@ package com.projectWeb.course.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -49,10 +51,14 @@ public class UserService {
 	//ID PARA INDICAR O USUARIO
 	//OBJ PARA CONTENDO AS ALTERAÇÕES
 	public User update(Long id, User obj) {
-		//getOne CRIA UMA INSTANCIA PROVISORIA SEM IR AO BD.
-		User entity = repository.getOne(id);
-		updateData(entity,obj);
-		return repository.save(entity);
+		try {
+			//getOne CRIA UMA INSTANCIA PROVISORIA SEM IR AO BD.
+			User entity = repository.getOne(id);
+			updateData(entity,obj);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(User entity, User obj) {
