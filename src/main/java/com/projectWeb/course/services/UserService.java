@@ -34,4 +34,20 @@ public class UserService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	//METODO UPDATE CONTENDO COM PARAMETRO ID E OBJ
+	//ID PARA INDICAR O USUARIO
+	//OBJ PARA CONTENDO AS ALTERAÇÕES
+	public User update(Long id, User obj) {
+		//getOne CRIA UMA INSTANCIA PROVISORIA SEM IR AO BD.
+		User entity = repository.getOne(id);
+		updateData(entity,obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+	}
 }
